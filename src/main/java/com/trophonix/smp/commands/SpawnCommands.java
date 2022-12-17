@@ -28,6 +28,8 @@ public class SpawnCommands implements CommandExecutor {
       location.setX(location.getBlockX() + 0.5);
       location.setZ(location.getBlockZ() + 0.5);
       plugin.setSpawnLocation(location);
+      plugin.getConfig().set("spawn", location);
+      plugin.saveConfig();
       player.sendMessage(ChatColor.GREEN + "Spawn set!");
     }
     return true;
