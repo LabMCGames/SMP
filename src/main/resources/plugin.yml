@@ -2,6 +2,7 @@ name: LabSMP
 version: '${project.version}'
 main: org.labgames.smp.SMP
 api-version: 1.19
+author: LabGames
 commands:
   spawn:
     description: 'Teleport to spawn'
