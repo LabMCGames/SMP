@@ -1,0 +1,9 @@
+name: SMP
+version: '${project.version}'
+main: com.trophonix.smp.SMP
+api-version: 1.19
+commands:
+  home:
+    description: 'Teleport  home'
+  sethome:
+    description: 'Create a home'
