@@ -73,6 +73,10 @@ public class PlayerData {
     return this.player;
   }
 
+  public int getAllowedHomes() {
+    return allowedHomes;
+  }
+
   public List<Home> getHomes() {
     return homes;
   }

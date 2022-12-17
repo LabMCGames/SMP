@@ -50,6 +50,12 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
           return true;
         }
       } else homeName = "home";
+      if (datum.getHome(homeName) == null) {
+        if (datum.getHomes().size() >= datum.getAllowedHomes()) {
+          player.sendMessage(ChatColor.RED + "You've reached your maximum allowed homes!");
+          return true;
+        }
+      }
       Location homeLocation = player.getLocation();
       datum.addHome(homeName, homeLocation);
       datum.save();

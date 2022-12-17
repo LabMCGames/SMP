@@ -1,6 +1,7 @@
 package com.trophonix.smp;
 
 import com.trophonix.smp.commands.HomeCommands;
+import com.trophonix.smp.commands.SpawnCommands;
 import com.trophonix.smp.features.FastSleep;
 import com.trophonix.smp.playerdata.PlayerManager;
 import org.bukkit.Location;
@@ -22,6 +23,9 @@ public final class SMP extends JavaPlugin {
     HomeCommands homeCommands = new HomeCommands();
     getCommand("home").setExecutor(homeCommands);
     getCommand("sethome").setExecutor(homeCommands);
+    SpawnCommands spawnCommands = new SpawnCommands();
+    getCommand("spawn").setExecutor(spawnCommands);
+    getCommand("setspawn").setExecutor(spawnCommands);
   }
 
   @Override
