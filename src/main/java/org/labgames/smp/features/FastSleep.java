@@ -1,5 +1,8 @@
 package org.labgames.smp.features;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.labgames.smp.SMP;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -15,9 +18,6 @@ public class FastSleep implements Listener {
   private final SMP smp;
   private final World world;
 
-  private float ticksPerTimeSkip;
-
-  private BukkitTask skipTimeTask;
 
   public FastSleep(SMP smp, World world) {
     this.smp = smp;
@@ -30,28 +30,15 @@ public class FastSleep implements Listener {
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player.isSleeping()) sleepers++;
     }
-    int maximumSpeed = (Bukkit.getOnlinePlayers().size() / 5) + 1;
-    if (sleepers > maximumSpeed) sleepers = maximumSpeed;
-    ticksPerTimeSkip = (maximumSpeed / (float) sleepers) / 2;
-    if (skipTimeTask == null) {
-      skipTimeTask =
-          Bukkit.getScheduler()
-              .runTaskTimer(
-                  smp,
-                  new Runnable() {
-                    private int ticksSinceTimeSkip = 0;
-
-                    @Override
-                    public void run() {
-                      if (ticksPerTimeSkip < 1) {
-                        world.setTime(world.getTime() + (int) (1 / ticksPerTimeSkip));
-                      } else if (ticksSinceTimeSkip++ >= ticksPerTimeSkip) {
-                        world.setTime(world.getTime() + 1);
-                      }
-                    }
-                  },
-                  1L,
-                  1L);
+    int third = Bukkit.getOnlinePlayers().size() / 3;
+    if (sleepers < third) {
+      for (Player player : Bukkit.getOnlinePlayers()) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN + "Sleep to skip night! " + ChatColor.WHITE + sleepers + ChatColor.GREEN + "/" + third));
+      }
+    } else {
+      for (Player player : Bukkit.getOnlinePlayers()) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN + "Skipping night..."));
+      }
     }
   }
 
@@ -62,6 +49,7 @@ public class FastSleep implements Listener {
 
   @EventHandler
   public void onLeaveBed(PlayerBedLeaveEvent event) {
+    if (world.getTime() > 998 && world.getTime() < 13000) return;
     checkForSleepers();
   }
 }
