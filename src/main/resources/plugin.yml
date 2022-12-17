@@ -1,6 +1,6 @@
-name: SMP
+name: LabSMP
 version: '${project.version}'
-main: com.trophonix.smp.SMP
+main: org.labgames.smp.SMP
 api-version: 1.19
 commands:
   spawn:

@@ -1,4 +1,4 @@
-package com.trophonix.smp.features.bags;
+package org.labgames.smp.features.bags;
 
 public class GiftBag {
 

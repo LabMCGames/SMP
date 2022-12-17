@@ -1,7 +1,7 @@
-package com.trophonix.smp.playerdata;
+package org.labgames.smp.playerdata;
 
-import com.trophonix.smp.SMP;
-import com.trophonix.smp.features.Home;
+import org.labgames.smp.SMP;
+import org.labgames.smp.features.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;

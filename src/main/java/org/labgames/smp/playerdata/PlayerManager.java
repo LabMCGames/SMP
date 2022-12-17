@@ -1,6 +1,6 @@
-package com.trophonix.smp.playerdata;
+package org.labgames.smp.playerdata;
 
-import com.trophonix.smp.SMP;
+import org.labgames.smp.SMP;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

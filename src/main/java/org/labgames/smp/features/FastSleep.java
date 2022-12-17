@@ -1,6 +1,6 @@
-package com.trophonix.smp.features;
+package org.labgames.smp.features;
 
-import com.trophonix.smp.SMP;
+import org.labgames.smp.SMP;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

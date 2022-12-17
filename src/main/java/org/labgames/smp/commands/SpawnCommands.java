@@ -1,6 +1,6 @@
-package com.trophonix.smp.commands;
+package org.labgames.smp.commands;
 
-import com.trophonix.smp.SMP;
+import org.labgames.smp.SMP;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

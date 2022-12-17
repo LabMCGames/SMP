@@ -1,4 +1,4 @@
-package com.trophonix.smp.util;
+package org.labgames.smp.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

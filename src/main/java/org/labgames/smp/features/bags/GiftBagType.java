@@ -1,6 +1,6 @@
-package com.trophonix.smp.features.bags;
+package org.labgames.smp.features.bags;
 
-import com.trophonix.smp.util.ItemBuilder;
+import org.labgames.smp.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

@@ -1,9 +1,9 @@
-package com.trophonix.smp;
+package org.labgames.smp;
 
-import com.trophonix.smp.commands.HomeCommands;
-import com.trophonix.smp.commands.SpawnCommands;
-import com.trophonix.smp.features.FastSleep;
-import com.trophonix.smp.playerdata.PlayerManager;
+import org.labgames.smp.commands.HomeCommands;
+import org.labgames.smp.commands.SpawnCommands;
+import org.labgames.smp.features.FastSleep;
+import org.labgames.smp.playerdata.PlayerManager;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 

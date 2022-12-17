@@ -1,4 +1,4 @@
-package com.trophonix.smp.features;
+package org.labgames.smp.features;
 
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
