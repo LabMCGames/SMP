@@ -21,8 +21,10 @@ public final class SMP extends JavaPlugin {
     players = new PlayerManager();
     spawnLocation = getConfig().getLocation("spawn");
     HomeCommands homeCommands = new HomeCommands();
+    getCommand("homes").setExecutor(homeCommands);
     getCommand("home").setExecutor(homeCommands);
     getCommand("sethome").setExecutor(homeCommands);
+    getCommand("delhome").setExecutor(homeCommands);
     SpawnCommands spawnCommands = new SpawnCommands();
     getCommand("spawn").setExecutor(spawnCommands);
     getCommand("setspawn").setExecutor(spawnCommands);

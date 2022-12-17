@@ -53,7 +53,6 @@ public class PlayerData {
     }
 
     PersistentDataContainer dataContainer = player.getPersistentDataContainer();
-    int i = 0;
     for (NamespacedKey key : dataContainer.getKeys()) {
       if (!key.getKey().startsWith("smp.homes.")) continue;
       String homeString = dataContainer.get(key, PersistentDataType.STRING);
@@ -63,7 +62,7 @@ public class PlayerData {
       double x = Double.parseDouble(split[2]);
       double y = Double.parseDouble(split[3]);
       double z = Double.parseDouble(split[4]);
-      NamespacedKey namespacedKey = new NamespacedKey(plugin, "smp.homes." + (i++));
+      NamespacedKey namespacedKey = new NamespacedKey(plugin, "smp.homes." + homeName);
       Location location = new Location(world, x, y, z);
       homes.add(new Home(namespacedKey, homeName, location));
     }
@@ -83,8 +82,13 @@ public class PlayerData {
 
   public void addHome(String name, Location home) {
     NamespacedKey namespacedKey =
-        new NamespacedKey(SMP.getPlugin(SMP.class), "smp.homes." + homes.size());
+        new NamespacedKey(SMP.getPlugin(SMP.class), "smp.homes." + name);
     homes.add(new Home(namespacedKey, name, home));
+  }
+
+  public void removeHome(Home home) {
+    homes.remove(home);
+    player.getPersistentDataContainer().remove(home.getNamespacedKey());
   }
 
   public Home getHome(String name) {

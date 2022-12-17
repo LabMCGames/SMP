@@ -40,7 +40,7 @@ public class PlayerManager implements Listener {
 
   public void teleport(Player player, Location location, int delaySeconds) {
     player.sendMessage(ChatColor.GREEN + "You will teleport in " + ChatColor.DARK_GREEN + ChatColor.BOLD + "5 seconds");
-    cancelTeleport(player);
+    cancelTeleport(player, true);
     teleportTasks.put(player, Bukkit.getScheduler().runTaskTimer(
             SMP.getPlugin(SMP.class),
             new Runnable() {
@@ -48,8 +48,8 @@ public class PlayerManager implements Listener {
               @Override
               public void run() {
                 if (countdown == 0) {
+                  cancelTeleport(player, false);
                   player.teleport(location);
-                  cancelTeleport(player);
                 } else
                   player.sendMessage(ChatColor.DARK_GREEN + ChatColor.BOLD.toString() + countdown-- + "..");
               }
@@ -57,11 +57,12 @@ public class PlayerManager implements Listener {
     ));
   }
 
-  public void cancelTeleport(Player player) {
+  public void cancelTeleport(Player player, boolean sendMessage) {
     BukkitTask teleportTask = teleportTasks.get(player);
     if (teleportTask != null) {
-      player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "Cancelled!");
+      if (sendMessage) player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "Cancelled!");
       teleportTask.cancel();
+      teleportTasks.remove(player);
     }
   }
 
@@ -72,14 +73,14 @@ public class PlayerManager implements Listener {
 
   @EventHandler
   public void onQuit(PlayerQuitEvent event) {
-    cancelTeleport(event.getPlayer());
+    cancelTeleport(event.getPlayer(), false);
     playerData.remove(getPlayerData(event.getPlayer()));
   }
 
   @EventHandler
   public void onDamaged(EntityDamageByEntityEvent event) {
     if (event.getEntity() instanceof Player) {
-      cancelTeleport((Player)event.getEntity());
+      cancelTeleport((Player)event.getEntity(), true);
     }
   }
 
@@ -88,13 +89,12 @@ public class PlayerManager implements Listener {
     if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ() && event.getFrom().getBlockY() == event.getTo().getBlockY()) {
       return;
     }
-    BukkitTask teleportTask = teleportTasks.get(event.getPlayer());
-    if (teleportTask != null) teleportTask.cancel();
+    cancelTeleport(event.getPlayer(), true);
   }
 
   @EventHandler
   public void onTeleport(PlayerTeleportEvent event) {
-    cancelTeleport(event.getPlayer());
+    cancelTeleport(event.getPlayer(), true);
   }
 
 }

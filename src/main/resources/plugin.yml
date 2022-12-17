@@ -8,10 +8,14 @@ commands:
   setspawn:
     description: 'Set spawn point'
     permission: 'smp.admin'
+  homes:
+    description: 'List your homes'
   home:
     description: 'Teleport  home'
   sethome:
     description: 'Create a home'
+  delhome:
+    description: 'Delete a home'
 permissions:
   smp.admin:
     default: op
