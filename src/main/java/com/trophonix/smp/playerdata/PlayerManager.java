@@ -47,11 +47,11 @@ public class PlayerManager implements Listener {
               private int countdown = delaySeconds;
               @Override
               public void run() {
-                if (countdown == 0)
+                if (countdown == 0) {
                   player.teleport(location);
-                else
+                  cancelTeleport(player);
+                } else
                   player.sendMessage(ChatColor.DARK_GREEN + ChatColor.BOLD.toString() + countdown-- + "..");
-                cancelTeleport(player);
               }
             }, 0L, 20L
     ));
