@@ -4,8 +4,7 @@ import org.bukkit.entity.Player;
 
 public interface GiftBagReward {
 
-    void giveReward(Player player);
+  void giveReward(Player player);
 
-    String getName();
-
+  String getName();
 }

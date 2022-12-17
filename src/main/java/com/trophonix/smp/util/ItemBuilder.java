@@ -46,5 +46,4 @@ public class ItemBuilder {
     consumer.accept(meta);
     return this;
   }
-
 }

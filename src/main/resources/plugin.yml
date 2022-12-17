@@ -3,7 +3,17 @@ version: '${project.version}'
 main: com.trophonix.smp.SMP
 api-version: 1.19
 commands:
+  spawn:
+    description: 'Teleport to spawn'
+  setspawn:
+    description: 'Set spawn point'
+    permission: 'smp.admin'
   home:
     description: 'Teleport  home'
   sethome:
     description: 'Create a home'
+permissions:
+  smp.admin:
+    default: op
+  smp.homes.2:
+    default: true
