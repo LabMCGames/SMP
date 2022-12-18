@@ -74,6 +74,7 @@ public class TpaCommands implements CommandExecutor, Listener {
         return true;
       }
 
+      tpaRequests.remove(request);
       request.sender.sendMessage(player.getPlayerListName() + ChatColor.YELLOW + " accepted your teleport request!");
       player.sendMessage(request.sender.getPlayerListName() + ChatColor.YELLOW + " is teleporting to you now!");
       SMP.getPlugin(SMP.class).getPlayers().teleport(request.sender, player.getLocation(), 5);
