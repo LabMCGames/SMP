@@ -2,6 +2,7 @@ package org.labgames.smp.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -39,6 +40,11 @@ public class ItemBuilder {
       lore[i] = ChatColor.translateAlternateColorCodes('&', lore[i]);
     }
     this.meta.setLore(new ArrayList<>(Arrays.asList(lore)));
+    return this;
+  }
+
+  public ItemBuilder hideAttributes() {
+    meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
     return this;
   }
 

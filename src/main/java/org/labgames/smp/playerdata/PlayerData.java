@@ -1,7 +1,5 @@
 package org.labgames.smp.playerdata;
 
-import org.labgames.smp.SMP;
-import org.labgames.smp.features.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -9,6 +7,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.labgames.smp.SMP;
+import org.labgames.smp.features.Home;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package org.labgames.smp.features.bags;
 
-import org.labgames.smp.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.labgames.smp.util.ItemBuilder;
 
 public enum GiftBagType {
   VOTER("&aVoter Gift Bag"),

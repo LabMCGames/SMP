@@ -4,6 +4,8 @@ main: org.labgames.smp.SMP
 api-version: 1.19
 author: LabGames
 commands:
+  help:
+    description: 'Open help menu'
   spawn:
     description: 'Teleport to spawn'
   setspawn:
@@ -17,6 +19,14 @@ commands:
     description: 'Create a home'
   delhome:
     description: 'Delete a home'
+  tpa:
+    description: 'Send a teleport request'
+  tpaccept:
+    description: 'Accept a teleport request'
+  kit:
+    description: 'Claim a kit'
+  kits:
+    description: 'List kits'
 permissions:
   smp.admin:
     default: op
