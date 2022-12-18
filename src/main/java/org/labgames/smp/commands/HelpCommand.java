@@ -33,15 +33,17 @@ public class HelpCommand implements CommandExecutor, Listener {
           " "
       ).build();
 
-  private static final ItemStack JOBS_ITEM = new ItemBuilder(Material.STONE_PICKAXE).hideAttributes()
-      .displayName(ChatColor.GREEN + "Coins Economy")
+  private static final ItemStack ECONOMY_ITEM = new ItemBuilder(Material.GOLD_NUGGET).hideAttributes()
+      .displayName(ChatColor.GREEN + "Economy")
       .lore(
           " ",
-          ChatColor.YELLOW + "/jobs browse",
-          ChatColor.WHITE + "Select your 3 favorite jobs and start earning!",
-          " ",
-          ChatColor.YELLOW + "/balance and /pay (player) (amount)",
-          ChatColor.WHITE + "Check your balance and send other players money.",
+//          ChatColor.YELLOW + "/jobs browse",
+//          ChatColor.WHITE + "Select your 3 favorite jobs and start earning!",
+//          " ",
+//          ChatColor.YELLOW + "/balance and /pay (player) (amount)",
+//          ChatColor.WHITE + "Check your balance and send other players money.",
+//          " ",
+          ChatColor.YELLOW + "Lab SMP currently operates on a bartering economy.",
           " ",
           ChatColor.YELLOW + "/trade (player)",
           ChatColor.WHITE + "Ask a player within 10 blocks to trade.",
@@ -57,7 +59,7 @@ public class HelpCommand implements CommandExecutor, Listener {
       helpMenu.setItem(i, BACKGROUND_ITEM);
     }
     helpMenu.setItem(10, TELEPORT_COMMANDS_ITEM);
-    helpMenu.setItem(12, JOBS_ITEM);
+    helpMenu.setItem(12, ECONOMY_ITEM);
   }
 
   @EventHandler
