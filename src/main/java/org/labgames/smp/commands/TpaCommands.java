@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.labgames.smp.SMP;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,13 +62,7 @@ public class TpaCommands implements CommandExecutor, Listener {
       }.runTaskLater(SMP.getPlugin(SMP.class), 20 * 60 * 5);
       return true;
     } else if (command.getName().equals("tpaccept")) {
-      TpRequest request = null;
-      for (TpRequest tpaRequest : tpaRequests) {
-        if (player.equals(tpaRequest.receiver)) {
-          request = tpaRequest;
-          break;
-        }
-      }
+      TpRequest request = getLastRequest(player);
 
       if (request == null) {
         player.sendMessage(ChatColor.RED + "No teleport requests found!");
@@ -81,6 +76,16 @@ public class TpaCommands implements CommandExecutor, Listener {
       return true;
     }
     return true;
+  }
+
+  private TpRequest getLastRequest(Player player) {
+    TpRequest request = null;
+    for (TpRequest tpaRequest : tpaRequests) {
+      if (request == null || tpaRequest.timestamp.isAfter(request.timestamp)) {
+        request = tpaRequest;
+      }
+    }
+    return request;
   }
 
   private void expire(TpRequest request) {
@@ -102,10 +107,12 @@ public class TpaCommands implements CommandExecutor, Listener {
 
     protected final Player sender;
     protected final Player receiver;
+    protected final Instant timestamp;
 
     public TpRequest(Player sender, Player receiver) {
       this.sender = sender;
       this.receiver = receiver;
+      this.timestamp = Instant.now();
     }
   }
 
