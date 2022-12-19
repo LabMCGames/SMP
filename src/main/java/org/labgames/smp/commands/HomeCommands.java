@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class HomeCommands implements CommandExecutor, TabCompleter {
 
-  private static final Pattern VALID_NAME = Pattern.compile("[a-z0-9/._-]+");
+  private static final Pattern VALID_NAME = Pattern.compile("[a-zA-Z0-9/._-]+");
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

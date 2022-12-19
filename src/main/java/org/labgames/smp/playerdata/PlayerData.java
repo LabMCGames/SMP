@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -19,6 +20,8 @@ public class PlayerData {
 
   private int allowedHomes;
   private List<Home> homes = new ArrayList<>();
+
+  private CommandSender lastMessenger;
 
   public PlayerData(Player player) {
     this.player = player;
@@ -62,7 +65,7 @@ public class PlayerData {
       double x = Double.parseDouble(split[2]);
       double y = Double.parseDouble(split[3]);
       double z = Double.parseDouble(split[4]);
-      NamespacedKey namespacedKey = new NamespacedKey(plugin, "smp.homes." + homeName);
+      NamespacedKey namespacedKey = new NamespacedKey(plugin, "smp.homes." + homeName.toLowerCase());
       Location location = new Location(world, x, y, z);
       homes.add(new Home(namespacedKey, homeName, location));
     }
@@ -82,7 +85,7 @@ public class PlayerData {
 
   public void addHome(String name, Location home) {
     NamespacedKey namespacedKey =
-        new NamespacedKey(SMP.getPlugin(SMP.class), "smp.homes." + name);
+        new NamespacedKey(SMP.getPlugin(SMP.class), "smp.homes." + name.toLowerCase());
     homes.add(new Home(namespacedKey, name, home));
   }
 
@@ -98,5 +101,13 @@ public class PlayerData {
       }
     }
     return null;
+  }
+
+  public CommandSender getLastMessenger() {
+    return lastMessenger;
+  }
+
+  public void setLastMessenger(Player lastMessenger) {
+    this.lastMessenger = lastMessenger;
   }
 }

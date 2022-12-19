@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -103,6 +104,11 @@ public class PlayerManager implements Listener {
   @EventHandler
   public void onTeleport(PlayerTeleportEvent event) {
     cancelTeleport(event.getPlayer(), true);
+  }
+
+  @EventHandler
+  public void onDeath(PlayerDeathEvent event) {
+
   }
 
 }
