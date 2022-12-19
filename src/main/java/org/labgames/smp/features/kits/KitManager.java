@@ -10,8 +10,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
@@ -33,13 +31,11 @@ public class KitManager implements CommandExecutor, Listener {
       Kit kit = getKit(args[0]);
       if (kit != null) {
         PersistentDataContainer dataContainer = player.getPersistentDataContainer();
-        if (dataContainer.has(kit.getLastUseKey(), PersistentDataType.LONG)) {
-          long lastUsage = dataContainer.get(kit.getLastUseKey(), PersistentDataType.LONG);
-          long nextUsage = lastUsage + kit.getDelaySeconds();
-          if (lastUsage > 0 && Instant.now().isBefore(Instant.ofEpochSecond(nextUsage))) {
-            player.sendMessage(ChatColor.RED + "You can claim that kit again in " + timeRemaining(nextUsage - Instant.now().getEpochSecond()));
-            return true;
-          }
+        long lastUsage = getLastUsage(player, kit);
+        long nextUsage = lastUsage + kit.getDelaySeconds();
+        if (lastUsage > 0 && Instant.now().isBefore(Instant.ofEpochSecond(nextUsage))) {
+          player.sendMessage(ChatColor.RED + "You can claim that kit again in " + timeRemaining(nextUsage - Instant.now().getEpochSecond()));
+          return true;
         }
 
         kit.give(player);
@@ -48,13 +44,29 @@ public class KitManager implements CommandExecutor, Listener {
         return true;
       }
     }
+    listKits(player);
+    return true;
+  }
 
+  private void listKits(Player player) {
     StringJoiner joiner = new StringJoiner(", ");
     for (Kit kit : kits) {
-      joiner.add(kit.getName());
+      String name;
+      long lastUsage = getLastUsage(player, kit);
+      if (lastUsage > 0 && Instant.now().isBefore(Instant.ofEpochSecond(lastUsage + kit.getDelaySeconds()))) {
+        name = ChatColor.GRAY + ChatColor.STRIKETHROUGH.toString() + kit.getName() + ChatColor.RESET;
+      } else {
+        name = kit.getName();
+      }
+      joiner.add(name);
     }
     player.sendMessage(ChatColor.GREEN + "Kits: " + ChatColor.WHITE + joiner);
-    return true;
+  }
+
+  private long getLastUsage(Player player, Kit kit) {
+    PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+    if (!dataContainer.has(kit.getLastUseKey(), PersistentDataType.LONG)) return 0;
+    return dataContainer.get(kit.getLastUseKey(), PersistentDataType.LONG);
   }
 
   public Kit getKit(String name) {
