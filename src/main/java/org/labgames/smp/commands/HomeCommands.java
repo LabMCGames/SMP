@@ -85,7 +85,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
         return true;
       }
       datum.removeHome(home);
-      player.sendMessage(ChatColor.GREEN + "Deleted home " + home.getName());
+      player.sendMessage(ChatColor.GREEN + "Deleted home " + ChatColor.DARK_GREEN + home.getName());
     }
     return true;
   }
@@ -94,7 +94,7 @@ public class HomeCommands implements CommandExecutor, TabCompleter {
   public List<String> onTabComplete(
       CommandSender sender, Command command, String label, String[] args) {
     if (sender instanceof Player) {
-      if (command.getName().equals("home")) {
+      if (command.getName().equals("home") || command.getName().equalsIgnoreCase("delhome")) {
         PlayerData datum = SMP.getPlugin(SMP.class).getPlayers().getPlayerData(((Player) sender).getPlayer());
         if (datum.getHomes().isEmpty()) return null;
         if (args.length == 0 || args[0].equals("")) {

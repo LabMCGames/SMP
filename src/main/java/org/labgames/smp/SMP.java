@@ -22,6 +22,7 @@ public final class SMP extends JavaPlugin {
     kits = new KitManager();
     getCommand("kit").setExecutor(kits);
     getCommand("kits").setExecutor(kits);
+    getCommand("givekit").setExecutor(kits);
     spawnLocation = getConfig().getLocation("spawn");
     HomeCommands homeCommands = new HomeCommands();
     getCommand("homes").setExecutor(homeCommands);

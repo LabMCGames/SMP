@@ -27,6 +27,9 @@ commands:
     description: 'Claim a kit'
   kits:
     description: 'List kits'
+  givekit:
+    description: 'Admin command for giving kits'
+    permission: 'smp.admin'
   message:
     aliases: [msg,m,tell]
   reply:

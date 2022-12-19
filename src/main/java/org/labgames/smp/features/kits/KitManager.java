@@ -1,19 +1,24 @@
 package org.labgames.smp.features.kits;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-public class KitManager implements CommandExecutor, Listener {
+public class KitManager implements CommandExecutor, TabCompleter, Listener {
 
   private final Kit[] kits = {
       new StarterKit()
@@ -21,6 +26,32 @@ public class KitManager implements CommandExecutor, Listener {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    if (command.getName().equalsIgnoreCase("givekit")) {
+      if (args.length < 2) {
+        sender.sendMessage(ChatColor.RED + "/givekit (player) (kit) [anonymous true/false]");
+        return true;
+      }
+
+      Player player = Bukkit.getPlayer(args[0]);
+      if (player == null) {
+        sender.sendMessage(ChatColor.RED + "Player " + args[0] + " isn't online!");
+        return true;
+      }
+
+      Kit kit = getKit(args[1]);
+      if (kit == null) {
+        sender.sendMessage(ChatColor.GREEN + "Kits: " + ChatColor.WHITE + String.join(" ", Arrays.stream(kits).map(Kit::getName).collect(Collectors.toList())));
+        return true;
+      }
+
+      boolean anonymous = args.length > 2 && args[2].equalsIgnoreCase("true");
+
+      kit.give(player);
+      String senderName = anonymous ? ChatColor.GREEN + "Someone" : sender instanceof Player ? ((Player)sender).getPlayerListName() : sender.getName();
+      player.sendMessage(senderName + ChatColor.GREEN + " gifted you kit " + kit.getName() + "!");
+      return true;
+    }
+
     if (!(sender instanceof Player)) {
       sender.sendMessage(ChatColor.RED + "This command is for players and YOU AIN'T ONE");
       return true;
@@ -48,8 +79,21 @@ public class KitManager implements CommandExecutor, Listener {
     return true;
   }
 
+  @Override
+  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+    if (command.getName().equals("kits")) return null;
+    String started;
+    if (command.getName().equals("kit") && args.length > 0) started = args[0];
+    else if (command.getName().equals("givekit")) {
+      if (args.length > 1) started = args[1];
+      else return null;
+    }
+    else return Arrays.stream(kits).map(Kit::getName).collect(Collectors.toList());
+    return Arrays.stream(kits).map(Kit::getName).filter(name -> name.startsWith(started)).collect(Collectors.toList());
+  }
+
   private void listKits(Player player) {
-    StringJoiner joiner = new StringJoiner(", ");
+    StringJoiner joiner = new StringJoiner(" ");
     for (Kit kit : kits) {
       String name;
       long lastUsage = getLastUsage(player, kit);
