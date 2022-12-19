@@ -12,10 +12,8 @@ public class StarterKit extends Kit {
   @Override
   public void give(Player player) {
     giveItem(player, Material.WOODEN_SWORD);
-    giveItem(player, Material.BREAD, 12);
-    giveItem(player, Material.LEATHER_HELMET);
+    giveItem(player, Material.BREAD, 24);
     giveItem(player, Material.LEATHER_CHESTPLATE);
-    giveItem(player, Material.LEATHER_LEGGINGS);
     giveItem(player, Material.LEATHER_BOOTS);
   }
 

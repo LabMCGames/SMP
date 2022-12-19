@@ -21,7 +21,7 @@ public class PlayerData {
   private int allowedHomes;
   private List<Home> homes = new ArrayList<>();
 
-  private CommandSender lastMessenger;
+  private String lastMessenger;
 
   public PlayerData(Player player) {
     this.player = player;
@@ -103,11 +103,11 @@ public class PlayerData {
     return null;
   }
 
-  public CommandSender getLastMessenger() {
+  public String getLastMessenger() {
     return lastMessenger;
   }
 
-  public void setLastMessenger(Player lastMessenger) {
+  public void setLastMessenger(String lastMessenger) {
     this.lastMessenger = lastMessenger;
   }
 }

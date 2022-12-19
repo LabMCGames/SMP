@@ -51,6 +51,17 @@ public class HelpCommand implements CommandExecutor, Listener {
           ChatColor.WHITE + "exchange items, money and other resources!",
           " "
       ).build();
+
+  private static final ItemStack BEHEADING_ITEM = new ItemBuilder(Material.DIAMOND_AXE).hideAttributes()
+      .displayName(ChatColor.GREEN + "Beheading")
+      .lore(
+          " ",
+          ChatColor.YELLOW + "Behead a player with an axe!",
+          ChatColor.WHITE + "Kill a player with any type of axe",
+          ChatColor.WHITE + "to collect their head!",
+          " "
+      ).build();
+
   private Inventory helpMenu;
 
   public HelpCommand() {
@@ -60,6 +71,7 @@ public class HelpCommand implements CommandExecutor, Listener {
     }
     helpMenu.setItem(10, TELEPORT_COMMANDS_ITEM);
     helpMenu.setItem(12, ECONOMY_ITEM);
+    helpMenu.setItem(14, BEHEADING_ITEM);
   }
 
   @EventHandler
