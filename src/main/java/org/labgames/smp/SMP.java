@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.labgames.smp.commands.*;
 import org.labgames.smp.features.BeheadFeature;
 import org.labgames.smp.features.FastSleep;
+import org.labgames.smp.features.ProtectedPets;
 import org.labgames.smp.features.kits.KitManager;
 import org.labgames.smp.playerdata.PlayerManager;
 
@@ -20,6 +21,7 @@ public final class SMP extends JavaPlugin {
     new FastSleep(this, getServer().getWorld("world"));
     players = new PlayerManager();
     kits = new KitManager();
+    getCommand("rules").setExecutor(new RulesCommand());
     getCommand("kit").setExecutor(kits);
     getCommand("kits").setExecutor(kits);
     getCommand("givekit").setExecutor(kits);
@@ -35,6 +37,8 @@ public final class SMP extends JavaPlugin {
     TpaCommands tpaCommands = new TpaCommands();
     getCommand("tpa").setExecutor(tpaCommands);
     getCommand("tpaccept").setExecutor(tpaCommands);
+    getCommand("tpdeny").setExecutor(tpaCommands);
+    getCommand("tptoggle").setExecutor(tpaCommands);
     getServer().getPluginManager().registerEvents(tpaCommands, this);
     HelpCommand helpCommand = new HelpCommand();
     getCommand("help").setExecutor(helpCommand);
@@ -43,6 +47,7 @@ public final class SMP extends JavaPlugin {
     getCommand("message").setExecutor(msgCommands);
     getCommand("reply").setExecutor(msgCommands);
     getServer().getPluginManager().registerEvents(new BeheadFeature(), this);
+    getServer().getPluginManager().registerEvents(new ProtectedPets(), this);
   }
 
   @Override

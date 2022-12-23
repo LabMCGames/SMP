@@ -4,6 +4,8 @@ main: org.labgames.smp.SMP
 api-version: 1.19
 author: LabGames
 commands:
+  rules:
+    description: 'List the rules'
   help:
     description: 'Open help menu'
   spawn:
@@ -23,6 +25,12 @@ commands:
     description: 'Send a teleport request'
   tpaccept:
     description: 'Accept a teleport request'
+  tpdeny:
+    description: 'Decline a teleport request'
+    aliases: [tpadeny, tpdecline, tpadecline]
+  tpatoggle:
+    description: 'Toggle allowing teleport requests'
+    aliases: [tptoggle]
   kit:
     description: 'Claim a kit'
   kits:
