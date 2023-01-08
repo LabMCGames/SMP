@@ -42,6 +42,8 @@ commands:
     aliases: [msg,m,tell]
   reply:
     aliases: [r]
+  back:
+    description: 'Teleport to previous location'
 permissions:
   smp.admin:
     default: op

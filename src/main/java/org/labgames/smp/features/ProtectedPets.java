@@ -8,37 +8,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.labgames.smp.SMP;
 import org.spigotmc.event.entity.EntityMountEvent;
 
-import java.util.UUID;
-
 public class ProtectedPets implements Listener {
 
-  private static final NamespacedKey PET_OWNER_UUID = new NamespacedKey(SMP.getPlugin(SMP.class), "smp.pet-owner");
+  private static final NamespacedKey PET_FOLLOW_MODE = new NamespacedKey(SMP.getPlugin(SMP.class), "smp.pets.following");
 
   private void setOwnerData(LivingEntity pet, Player owner) {
     String name = owner.getPlayerListName();
     String possessive = name + (name.endsWith("s") ? "'" : "'s");
     pet.setCustomName(possessive + " " + pet.getType().getName());
     pet.setCustomNameVisible(true);
-    PersistentDataContainer pdc = pet.getPersistentDataContainer();
-    pdc.set(PET_OWNER_UUID, PersistentDataType.STRING, owner.getUniqueId().toString());
   }
-
-  private UUID getOwnerData(Entity pet) {
-    if (!hasOwnerData(pet)) return null;
-    PersistentDataContainer pdc = pet.getPersistentDataContainer();
-    return UUID.fromString(pdc.get(PET_OWNER_UUID, PersistentDataType.STRING));
-  }
-
-  private boolean hasOwnerData(Entity pet) {
-    PersistentDataContainer pdc = pet.getPersistentDataContainer();
-    return pdc.has(PET_OWNER_UUID, PersistentDataType.STRING);
-  }
-
   @EventHandler
   public void onTame(EntityTameEvent event) {
     if (!(event.getOwner() instanceof Player)) return;
@@ -72,9 +54,9 @@ public class ProtectedPets implements Listener {
 
   @EventHandler
   public void onEntityDamage(EntityDamageByEntityEvent event) {
-    UUID owner = getOwnerData(event.getEntity());
-    if (owner == null) return;
-    if (owner.equals(event.getDamager().getUniqueId())) return;
+    if (!(event.getEntity() instanceof Tameable)) return;
+    Tameable tamed = (Tameable) event.getEntity();
+    if (tamed.getOwner() == null || tamed.getOwner().equals(event.getDamager())) return;
     event.getDamager().sendMessage(ChatColor.RED + "That pet isn't yours!");
     event.setCancelled(true);
   }

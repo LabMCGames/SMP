@@ -48,6 +48,9 @@ public final class SMP extends JavaPlugin {
     getCommand("reply").setExecutor(msgCommands);
     getServer().getPluginManager().registerEvents(new BeheadFeature(), this);
     getServer().getPluginManager().registerEvents(new ProtectedPets(), this);
+    BackCommand backCommand = new BackCommand();
+    getCommand("back").setExecutor(backCommand);
+    getServer().getPluginManager().registerEvents(backCommand, this);
   }
 
   @Override
